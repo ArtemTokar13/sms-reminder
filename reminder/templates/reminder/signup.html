@@ -1,0 +1,23 @@
+{% extends 'reminder/base.html' %}
+{% load static %}
+{% block title %}Create reminder{% endblock %}
+
+{% block content %}
+
+
+
+<div class="card text-center">
+  <div class="card-header">
+      <h4>Sign UP form</h4>
+      <h4 style="color:Tomato;">{{ error }}</h4>
+  </div>
+  <div class="card-body">
+        <form action="" method="POST">{% csrf_token %}
+                <h5>{{ signup_form.as_p }}</h5>
+                <input style="color: white; background-color:green; font-size: 20px; border-radius: 10px; height:40px; width:370px;"
+                       type="submit" value="Register" />
+        </form>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'reminder/base.html' %}
+{% load static %}
+{% block title %}sms-reminder{% endblock %}
+
+{% block content %}
+
+{% if user.is_authenticated  %}
+<br>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <a href="{% url 'create' %}" class="navbar-brand">
+                <img class="img" src="{% static '/reminder/create.png' %}" border="7" width="500" height="500" alt="button">
+            </a>
+        </div>
+        <div class="col-6">
+            <a href="{% url 'remindlist' %}" class="navbar-brand">
+                <img class="img" src="{% static '/reminder/reminders.png' %}" border="7" width="500" height="500" alt="button">
+            </a>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="home-text">
+    <h3>Welcome to the sms-reminder. For create reminders please login or sign up.</h3>
+</div>
+{% endif %}
+
+
+
+{% endblock %}

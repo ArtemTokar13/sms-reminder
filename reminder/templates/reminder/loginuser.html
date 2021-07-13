@@ -1,0 +1,23 @@
+{% extends 'reminder/base.html' %}
+{% load static %}
+{% block title %}Create reminder{% endblock %}
+
+{% block content %}
+
+
+<div class="card text-center">
+  <div class="card-header">
+      <h4>Login form</h4>
+      <h4 style="color:Tomato;">{{ error }}</h4>
+  </div>
+  <div class="card-body">
+    <form action="" method="POST">{% csrf_token %}
+        {{ form.as_p }}
+            <input style="color: white; background-color:green; font-size: 20px; border-radius: 10px; height:40px; width:270px;"
+                   type="submit" value="Login" />
+    </form>
+  </div>
+</div>
+
+
+{% endblock %}

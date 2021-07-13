@@ -1,0 +1,23 @@
+.navbar-dark {
+background: #62F671;
+font-size: 20px;
+}
+
+.home-text {
+text-align: center;
+vertical-align: super;
+}
+
+.user {
+justify-content: space-between;
+}
+
+.img {
+border-radius: 20px;
+border-style: outset;
+border-color: beige;
+}
+
+body {
+background-color: #E5FFCC;
+}
