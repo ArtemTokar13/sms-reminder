@@ -10,7 +10,7 @@
       <h4 style="color:Tomato;">{{ error }}</h4>
   </div>
   <div class="card-body">
-    <form action="" method="POST">{% csrf_token %}
+    <form method="POST">{% csrf_token %}
         <h5>{{ form.as_p }}</h5>
         <input style="color: white; background-color:green; font-size: 20px; border-radius: 10px; height:40px; width:370px;"
                type="submit" value="Create" />

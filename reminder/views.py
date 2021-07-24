@@ -1,4 +1,6 @@
 import datetime
+from datetime import datetime
+from datetime import timedelta
 
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
@@ -10,6 +12,7 @@ from twilio.base.exceptions import TwilioRestException
 from reminder.forms import RemindForm, RemindUserForm
 from reminder.models import Remind, RemindUser
 from twilio.rest import Client
+from django.utils.timezone import now, localtime
 
 
 def home(request):
@@ -102,16 +105,19 @@ def sendsms(request):
     auth_token = "a146165a8ac791c156d05d4033838842"
     if request.method == 'POST':
         for smscontent in content:
-            if smscontent.remind_date == datetime.date.today():
-                tempusers = User.objects.filter(username=smscontent.author)
-                for recipient in tempusers:
-                    try:
-                        client = Client(account_sid, auth_token)
-                        message = client.messages.create(
-                            body="I just want to remind, that you have some task for today {date}: {task}. {time} is the deadline!".format(date=str(smscontent.remind_date), task=str(smscontent.title), time=str(smscontent.remind_time)),
-                            to=str(recipient.username),
-                            from_="+18568889437")
-                        print(message.sid)
-                    except TwilioRestException:
-                        pass
+            if smscontent.remind_date == datetime.today().date():
+                #if 1 == 1:
+                if ((datetime.now() + timedelta(minutes=58)).time()) < smscontent.remind_time < ((datetime.now() + timedelta(minutes=62)).time()):
+                    tempusers = User.objects.filter(username=smscontent.author)
+                    for recipient in tempusers:
+                        try:
+                            client = Client(account_sid, auth_token)
+                            message = client.messages.create(
+                                body="I just want to remind, that you have some task for today {date}: {task}. {time} is the deadline!".format(date=str(smscontent.remind_date), task=str(smscontent.title), time=str(smscontent.remind_time)),
+                                to=str(recipient.username),
+                                from_="+18568889437")
+                            print(message.sid)
+
+                        except TwilioRestException:
+                            pass
     return redirect('home')
