@@ -16,6 +16,7 @@ justify-content: space-between;
 border-radius: 20px;
 border-style: outset;
 border-color: beige;
+width: 100%;
 }
 
 body {
