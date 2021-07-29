@@ -7,4 +7,3 @@ local_settings.py
 /venv/
 twilio.env
 cron.py
-db.sqlite3
