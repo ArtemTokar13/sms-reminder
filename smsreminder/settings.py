@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'reminder',
-    'phonenumber_field',
     'twilio',
     'django_crontab',
 ]
