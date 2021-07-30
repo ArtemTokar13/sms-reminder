@@ -38,9 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'reminder',
-    'phonenumber_field',
     'twilio',
-    'django_crontab',
 ]
 
 MIDDLEWARE = [
@@ -133,3 +131,7 @@ try:
     from .local_settings import *
 except ImportError:
     print('No local file.')
+
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
