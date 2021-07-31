@@ -14,10 +14,9 @@ class Command(BaseCommand):
 
         content = Remind.objects.all()
         account_sid = "AC015c112c2b5761b3a756f528befee2c9"
-        auth_token = "a146165a8ac791c156d05d4033838842"
+        auth_token = "5da4b680602bcdb8a38c4d5a97a4f37b"
         for smscontent in content:
             if smscontent.remind_date == datetime.today().date():
-                self.stdout.write(self.style.SUCCESS(smscontent.author))
                 tempusers = User.objects.filter(username=smscontent.author)
                 for recipient in tempusers:
                     try:
@@ -29,10 +28,10 @@ class Command(BaseCommand):
                             to=str(recipient.username),
                             from_="+18568889437")
                         print(message.sid)
-                        self.stdout.write(self.style.SUCCESS('Successfully sent message to "%s"' % recipient.username))
+                        print('Successfully sent message to "%s"' % recipient.username)
 
                     except TwilioRestException:
-                        pass
+                        print('TwilioRestException')
         return
 
 
