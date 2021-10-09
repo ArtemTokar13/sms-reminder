@@ -16,6 +16,6 @@ class Remind(models.Model):
 
 
 class RemindUser(models.Model):
-    username = models.CharField(max_length=50)
+    phonenumber = models.CharField(max_length=50)
     password1 = models.CharField(max_length=50)
     password2 = models.CharField(max_length=50)

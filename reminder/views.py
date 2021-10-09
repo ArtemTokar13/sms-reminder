@@ -1,18 +1,11 @@
-import datetime
-from datetime import datetime
-from datetime import timedelta
-
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.shortcuts import render, redirect, get_object_or_404
-from twilio.base.exceptions import TwilioRestException
 
 from reminder.forms import RemindForm, RemindUserForm
-from reminder.models import Remind, RemindUser
-from twilio.rest import Client
-from django.utils.timezone import now, localtime
+from reminder.models import Remind
 
 
 def home(request):
@@ -25,7 +18,7 @@ def signup(request):
     else:
         if request.POST['password1'] == request.POST['password2']:
             try:
-                user = User.objects.create_user(request.POST['username'], password=request.POST['password1'],)
+                user = User.objects.create_user(request.POST['phonenumber'], password=request.POST['password1'],)
                 user.save()
                 if user is not None:
                     login(request, user)
@@ -36,6 +29,9 @@ def signup(request):
         else:
             return render(request, 'reminder/signup.html',
                 {'signup_form': RemindUserForm(), 'error': 'Passwords didn`t match'})
+
+def changepassword(request):
+    return
 
 
 def loginuser(request):
@@ -99,25 +95,25 @@ def delete(request, rdr_pk):
         return redirect('remindlist')
 
 
-def sendsms(request):
-    content = Remind.objects.all()
-    account_sid = "AC015c112c2b5761b3a756f528befee2c9"
-    auth_token = "a146165a8ac791c156d05d4033838842"
-    if request.method == 'POST':
-        for smscontent in content:
-            if smscontent.remind_date == datetime.today().date():
-                #if 1 == 1:
-                if ((datetime.now() + timedelta(minutes=58)).time()) < smscontent.remind_time < ((datetime.now() + timedelta(minutes=62)).time()):
-                    tempusers = User.objects.filter(username=smscontent.author)
-                    for recipient in tempusers:
-                        try:
-                            client = Client(account_sid, auth_token)
-                            message = client.messages.create(
-                                body="I just want to remind, that you have some task for today {date}: {task}. {time} is the deadline!".format(date=str(smscontent.remind_date), task=str(smscontent.title), time=str(smscontent.remind_time)),
-                                to=str(recipient.username),
-                                from_="+18568889437")
-                            print(message.sid)
-
-                        except TwilioRestException:
-                            pass
-    return redirect('home')
+#def sendsms(request):
+#    content = Remind.objects.all()
+#    account_sid = "AC015c112c2b5761b3a756f528befee2c9"
+#    auth_token = "a146165a8ac791c156d05d4033838842"
+#    if request.method == 'POST':
+#        for smscontent in content:
+#            if smscontent.remind_date == datetime.today().date():
+#                #if 1 == 1:
+#                if ((datetime.now() + timedelta(minutes=58)).time()) < smscontent.remind_time < ((datetime.now() + timedelta(minutes=62)).time()):
+#                    tempusers = User.objects.filter(username=smscontent.author)
+#                    for recipient in tempusers:
+#                        try:
+#                            client = Client(account_sid, auth_token)
+#                            message = client.messages.create(
+#                                body="I just want to remind, that you have some task for today {date}: {task}. {time} is the deadline!".format(date=str(smscontent.remind_date), task=str(smscontent.title), time=str(smscontent.remind_time)),
+#                                to=str(recipient.username),
+#                                from_="+18568889437")
+#                            print(message.sid)
+#
+#                        except TwilioRestException:
+#                            pass
+#    return redirect('home')

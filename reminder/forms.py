@@ -18,9 +18,9 @@ class RemindForm(ModelForm):
 class RemindUserForm(ModelForm):
     class Meta:
         model = RemindUser
-        fields = ('username', 'password1', 'password2',)
+        fields = ('phonenumber', 'password1', 'password2',)
         widgets = {
-            'username': forms.TextInput(attrs={'style': 'font-size: large',}),
+            'phonenumber': forms.TextInput(attrs={'style': 'font-size: large', 'placeholder': '+98 765 432 123'}),
             'password1': forms.PasswordInput(),
             'password2': forms.PasswordInput(),
         }

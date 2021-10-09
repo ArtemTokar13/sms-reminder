@@ -18,10 +18,6 @@
               <a href="{% url 'home' %}" class="navbar-brand">
                 <img src="{% static '/reminder/logo.svg' %}" width="200" height="50" alt="logo">
               </a>
-                  <!--form method="POST" action="{% url 'sendsms' %}">{% csrf_token %}
-                      <input style="color: white; background-color:green; font-size: 20px; border-radius: 10px; height:40px; width:370px;"
-                             type="submit" value="Sendsms" />
-                  </form-->
                 <div class="user d-flex justify-content-end collapse navbar-collapse" id="navbarNav">
                 {% if user.is_authenticated %}
 
